@@ -1,0 +1,14 @@
+{
+  "name": "liveengagebot",
+  "version": "1.0.0",
+  "description": "A bot to help ACS Support Team members on LiveEngage transfer chatsto the correct team",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
