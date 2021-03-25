@@ -27,18 +27,32 @@ let domains = [
     res.send(domains);
   });
 
-var teamMappings = [
-  {
-   acsCognitive: ['Assistant', 'IAM'],
-   acsFabric: ['OpenShift', 'SQL'],
-}
-];
-
- //Example request: http://localhost:4000/team/keywordhere
-app.get('/team/:keyword', function(req, res) {
-    var keyword = req.query.keyword;
-    var teamName = teamMappings.find((team) => team.keyword === keyword);
-    res.send(teamName);
+    //Example request: http://localhost:4000/domains/3 (or any number)
+    app.get('/domains/:team', function(req, res) {
+      var domainTeam = Number(req.params.team);
+      var getDomain = domains.find((domain) => domain.team === domainTeam);
+  
+      if (!getDomain) {
+        res.status(500).send('Domain not found.')
+      } else {
+      res.send(getDomain);
+      }
   });
 
-app.listen(port);
+  var teamMappings = {
+    "acsCognitive": "Assistant",
+    "acsFabric" : "OpenShift"
+  };
+
+ //Example request: http://localhost:4000/teams/keywordHere (any keyworkd in the map)
+app.get('/teams/:keyword', function(req, res) {
+  var keyword = req.query.keyword;
+  var teamName = teamMappings[keyword];
+  if (teamName) {
+      res.send(teamName);
+  } else {
+      res.send('there is no team matching that keyword')
+  }
+});
+
+app.listen(port, () => console.log('Server ready'));
