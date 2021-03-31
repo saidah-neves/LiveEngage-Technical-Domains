@@ -46,7 +46,7 @@ let domains = [
 
  //Example request: http://localhost:4000/teams/keywordHere (any keyworkd in the map)
 app.get('/teams/:keyword', function(req, res) {
-  var keyword = req.query.keyword;
+  var keyword = req.params.keyword;
   var teamName = teamMappings[keyword];
   if (teamName) {
       res.send(teamName);
