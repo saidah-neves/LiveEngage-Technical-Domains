@@ -3,9 +3,20 @@ var app = express();
 
 var port = process.env.PORT || 4000;
 
-app.get('/', function(req, res) {
-    //res.send('<html><head></head><body><h1>Teams:</h1></body></html>');
-    res.send(['acs-cognitive-team', 'acs-fabric-team', 'acs-appdev-team', 'acs-database-team', 'acs-database-db2', 'acs-compute-team', 'acs-security-team', 'acs-network-team', 'acs-storage-team', 'acs-virt-team', 'acsvpc']);
+  var teamMappings = {
+    "acsCognitive": "Assistant",
+    "acsFabric" : "OpenShift"
+  };
+
+ //Example request: http://localhost:4000/teams/keywordHere (any keyworkd in the map)
+app.get('/teams/:keyword', function(req, res) {
+  var keyword = req.params.keyword;
+  var teamName = teamMappings[keyword];
+  if (teamName) {
+      res.send(teamName);
+  } else {
+      res.send('there is no team matching that keyword')
+  }
 });
 
-app.listen(port, () => console.log(['acs-cognitive-team,acs-fabric-team,acs-appdev-team, acs-database-team, acs-database-db2, acs-compute-team, acs-security-team,acs-network-team, acs-storage-team, acs-virt-team, acsvpc, goat-team']));
+app.listen(port, () => console.log('Server ready'));
